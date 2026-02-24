@@ -20,3 +20,7 @@ These are my very horrible written configs for my Laptop
 - Foot
 - Powerlevel10k
 - and prob some more i currently dont remember
+
+## Pictures
+
+![Picture of Desktop 1](./pics/pic1.png "Picture 1")
