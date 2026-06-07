@@ -1,7 +1,15 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- fugitive keymaps
-vim.keymap.set("n", "<leader>G", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gg", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gp", function () vim.cmd.Git("push") end )
+vim.keymap.set("n", "<leader>gpl", function () vim.cmd.Git("pull") end )
+vim.keymap.set("n", "<leader>gc", function () vim.cmd.Git("commit") end )
+vim.keymap.set("n", "<leader>gm", function ()
+   vim.ui.input( { prompt = "Message: ", scope = "buffer" }, function (input)
+      vim.cmd.Git('commit -m "' .. input .. '"')
+   end )
+end)
 
 -- gitsigns keymaps
 vim.keymap.set("n", "<leader>gsb", function() require('gitsigns').stage_buffer() end)
