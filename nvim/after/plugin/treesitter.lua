@@ -1,13 +1,17 @@
-require 'nvim-treesitter.configs'.setup {
-	ensure_installed = { "c", "java", "c_sharp", "cpp", "lua", "json", "xml", "html", "css", "markdown"},
+local parsers = { "c", "java", "c_sharp", "cpp", "lua", "json", "xml", "html", "css", "markdown", "vim", "vimdoc", "query" }
 
-	sync_install = false,
+require('nvim-treesitter').install(parsers)
 
-	auto_install = true,
+vim.api.nvim_create_autocmd("FileType", {
+   group = vim.api.nvim_create_augroup("TreesitterAutoInstall", { clear = true }),
+   callback = function(args)
+      local ft = vim.bo[args.buf].filetype
 
-	highlight = {
-		enable = true,
+      local has_parser, _ = pcall(vim.treesitter.query.get, ft, "highlights")
+      if not has_parser then
+         pcall(require('nvim-treesitter').install, ft)
+      end
 
-		additional_vim_regex_highlighting = false,
-	},
-}
+      pcall(vim.treesitter.start, args.buf)
+   end,
+})
