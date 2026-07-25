@@ -17,7 +17,11 @@ end)
 local gitSignes = require('gitsigns');
 vim.keymap.set("n", "<leader>gsb", function() gitSignes.stage_buffer() end)
 vim.keymap.set("n", "<leader>gsh", function() gitSignes.stage_hunk() end)
+
 vim.keymap.set("n", "<leader>gsp", function() gitSignes.preview_hunk() end)
+vim.keymap.set("n", "<leader>gsB", function() gitSignes.blame_line() end)
+vim.keymap.set("n", "<leader>gsd", function() gitSignes.diffthis() end)
+
 vim.keymap.set("n", "<leader>gsn", function() gitSignes.nav_hunk("next") end)
 vim.keymap.set("n", "<leader>gsN", function() gitSignes.nav_hunk("next") end)
 
