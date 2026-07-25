@@ -7,7 +7,9 @@ vim.keymap.set("n", "<leader>gpl", function () vim.cmd.Git("pull") end )
 vim.keymap.set("n", "<leader>gc", function () vim.cmd.Git("commit") end )
 vim.keymap.set("n", "<leader>gm", function ()
    vim.ui.input( { prompt = "Message: ", scope = "buffer" }, function (input)
-      vim.cmd.Git('commit -m "' .. input .. '"')
+      if input ~= nil then
+         vim.cmd.Git('commit -m "' .. input .. '"')
+      end
    end )
 end)
 
