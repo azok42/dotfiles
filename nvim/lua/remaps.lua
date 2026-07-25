@@ -12,8 +12,12 @@ vim.keymap.set("n", "<leader>gm", function ()
 end)
 
 -- gitsigns keymaps
-vim.keymap.set("n", "<leader>gsb", function() require('gitsigns').stage_buffer() end)
-vim.keymap.set("n", "<leader>gsh", function() require('gitsigns').stage_hunk() end)
+local gitSignes = require('gitsigns');
+vim.keymap.set("n", "<leader>gsb", function() gitSignes.stage_buffer() end)
+vim.keymap.set("n", "<leader>gsh", function() gitSignes.stage_hunk() end)
+vim.keymap.set("n", "<leader>gsp", function() gitSignes.preview_hunk() end)
+vim.keymap.set("n", "<leader>gsn", function() gitSignes.nav_hunk("next") end)
+vim.keymap.set("n", "<leader>gsN", function() gitSignes.nav_hunk("next") end)
 
 -- undotree keymaps
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
