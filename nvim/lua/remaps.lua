@@ -1,3 +1,9 @@
+-- normal
+vim.keymap.set("n", "<leader>d", '"+d')
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>p", '"+p')
+vim.keymap.set("n", "<leader>P", '"+P')
+
 local function get_branches()
    local branches = {}
 
