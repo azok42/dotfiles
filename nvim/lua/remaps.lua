@@ -52,6 +52,14 @@ local function commit_with_msg()
    end )
 end
 
+local function switch_new_branch()
+   vim.ui.input( { prompt = "Branchname: ", scope = "buffer" }, function (input)
+      if input ~= nil then
+         vim.cmd.Git('switch -c "' .. input .. '"')
+      end
+   end )
+end
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- fugitive keymaps
@@ -61,6 +69,7 @@ vim.keymap.set("n", "<leader>gP", function () vim.cmd.Git("pull") end )
 vim.keymap.set("n", "<leader>gc", function () vim.cmd.Git("commit") end )
 vim.keymap.set("n", "<leader>gm", commit_with_msg )
 vim.keymap.set("n", "<leader>gb", switch_branch)
+vim.keymap.set("n", "<leader>gB", switch_new_branch )
 
 -- gitsigns keymaps
 local gitSignes = require('gitsigns');
