@@ -1,3 +1,49 @@
+local function get_branches()
+   local branches = {}
+
+   local handle = io.popen("git branch --format='%(refname:short)'")
+
+   if handle then
+      for line in handle:lines() do
+         table.insert(branches, line)
+      end
+      handle:close()
+   end
+
+   branches[#branches] = branches[#branches] .. "\n"
+
+   return branches
+end
+
+local function switch_branch()
+   local branches = get_branches()
+
+   if #branches == 0 then
+      vim.notify("No branches found", vim.log.levels.WARN)
+      return
+   end
+
+   if #branches == 1 then
+      vim.notify("No branches to switch to", vim.log.levels.WARN)
+      return
+   end
+
+   vim.ui.select(branches, {
+      prompt = "Select branch: ",
+   }, function (choice)
+      if choice then
+         vim.fn.system("git switch " .. choice)
+
+         if vim.v.shell_error == 0 then
+            vim.notify("Switched to branch " .. choice, vim.log.levels.INFO)
+         else
+            vim.notify("Failed to switch to " .. choice, vim.log.levels.ERROR)
+         end
+
+      end
+   end)
+end
+
 local function commit_with_msg()
    vim.ui.input( { prompt = "Message: ", scope = "buffer" }, function (input)
       if input ~= nil then
@@ -14,6 +60,7 @@ vim.keymap.set("n", "<leader>gp", function () vim.cmd.Git("push") end )
 vim.keymap.set("n", "<leader>gP", function () vim.cmd.Git("pull") end )
 vim.keymap.set("n", "<leader>gc", function () vim.cmd.Git("commit") end )
 vim.keymap.set("n", "<leader>gm", commit_with_msg )
+vim.keymap.set("n", "<leader>gb", switch_branch)
 
 -- gitsigns keymaps
 local gitSignes = require('gitsigns');
