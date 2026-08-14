@@ -1,3 +1,11 @@
+local function commit_with_msg()
+   vim.ui.input( { prompt = "Message: ", scope = "buffer" }, function (input)
+      if input ~= nil then
+         vim.cmd.Git('commit -m "' .. input .. '"')
+      end
+   end )
+end
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- fugitive keymaps
@@ -5,13 +13,7 @@ vim.keymap.set("n", "<leader>gg", vim.cmd.Git)
 vim.keymap.set("n", "<leader>gp", function () vim.cmd.Git("push") end )
 vim.keymap.set("n", "<leader>gP", function () vim.cmd.Git("pull") end )
 vim.keymap.set("n", "<leader>gc", function () vim.cmd.Git("commit") end )
-vim.keymap.set("n", "<leader>gm", function ()
-   vim.ui.input( { prompt = "Message: ", scope = "buffer" }, function (input)
-      if input ~= nil then
-         vim.cmd.Git('commit -m "' .. input .. '"')
-      end
-   end )
-end)
+vim.keymap.set("n", "<leader>gm", commit_with_msg )
 
 -- gitsigns keymaps
 local gitSignes = require('gitsigns');
