@@ -3,6 +3,7 @@ vim.keymap.set("n", "<leader>d", '"+d')
 vim.keymap.set("n", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>p", '"+p')
 vim.keymap.set("n", "<leader>P", '"+P')
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 local function get_branches()
    local branches = {}
@@ -65,8 +66,6 @@ local function switch_new_branch()
       end
    end )
 end
-
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- fugitive keymaps
 vim.keymap.set("n", "<leader>gg", vim.cmd.Git)
